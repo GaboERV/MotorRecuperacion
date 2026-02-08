@@ -2,11 +2,11 @@ import os
 import logging
 from typing import List
 from sqlalchemy.orm import Session
-from models.user import User
-from models.file import File
-from repositories.user_repository import UserRepository
-from repositories.file_repository import FileRepository
-from config import UPLOAD_DIR
+from ..models.user import User
+from ..models.file import File
+from ..repositories.user_repository import UserRepository
+from ..repositories.file_repository import FileRepository
+from ..config import UPLOAD_DIR
 
 logger = logging.getLogger(__name__)
 

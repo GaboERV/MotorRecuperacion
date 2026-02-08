@@ -1,8 +1,22 @@
+import os
+import shutil
+import logging
 from typing import List, Optional
 from sqlalchemy.orm import Session
-from services.file_service import FileService
-from managers import FileManager
-from managers.rag_engine import process_and_query
+from .database.config import get_db, Base, engine
+from .services.file_service import FileService
+from .managers import FileManager
+from .managers.rag_engine import process_and_query
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler()
+    ]
+)
+logger = logging.getLogger(__name__)
 
 class RAGSystem:
     """
@@ -63,3 +77,20 @@ class RAGSystem:
         if success:
             return f"File '{filename}' deleted successfully."
         return f"Failed to delete '{filename}'. File not found or user does not exist."
+
+# --- Exportable Instance ---
+try:
+    # Ensure database tables exist
+    Base.metadata.create_all(bind=engine)
+    
+    # Create a default session and RAG instance
+    # Note: For production, you might want more granular session management per request
+    _db_session = next(get_db())
+    rag_client = RAGSystem(_db_session)
+    logger.info("RAGSystem initialized and ready for export as 'rag_client'.")
+
+except Exception as e:
+    logger.error(f"Failed to initialize RAGSystem: {e}")
+    rag_client = None
+
+__all__ = ["RAGSystem", "rag_client"]

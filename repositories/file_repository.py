@@ -1,6 +1,6 @@
 from typing import List
 from sqlalchemy.orm import Session
-from models.file import File
+from ..models.file import File
 from .base_repository import BaseRepository
 
 class FileRepository(BaseRepository[File]):

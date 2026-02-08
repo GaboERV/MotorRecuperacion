@@ -1,7 +1,7 @@
 import logging
 from typing import List
 from langchain_core.documents import Document
-from loaders import FileLoaderFactory
+from ..loaders import FileLoaderFactory
 
 logger = logging.getLogger(__name__)
 
