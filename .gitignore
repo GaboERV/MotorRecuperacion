@@ -1,0 +1,29 @@
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+venv/
+env/
+rag_env/
+
+# Environment Variables
+.env
+
+# Database
+db_rag/
+*.db
+*.sqlite3
+
+# OS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Uploads
+uploads/
+test_data/

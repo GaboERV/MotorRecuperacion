@@ -1,0 +1,15 @@
+langchain-community
+langchain-core
+langchain-text-splitters
+langchain-huggingface
+sentence-transformers
+chromadb
+sqlalchemy
+pymysql
+python-docx
+pypdf
+pillow
+pytesseract
+SpeechRecognition
+moviepy
+python-dotenv
