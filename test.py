@@ -3,9 +3,9 @@ from MotorRecuperacion import configure, create_RecoveryEngine_client
 # 1. Configuración Global (Solo una vez al inicio) no es necesario si se configura en el archivo .env
 configure(
     # MySQL
-    # database_url = "mysql+pymysql://admin:12345678@localhost/rag_db",
+    database_url = "mysql+pymysql://admin:58875887@localhost/rag_db",
     # SQLite
-    database_url = "sqlite:///rag_data.db"
+    # database_url = "sqlite:///rag_data.db"
 )
 
 # 2. Crear una instancia del cliente
