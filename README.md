@@ -99,6 +99,10 @@ print(respuesta)
 # 5. Listar archivos
 archivos = client.list_files("usuario@ejemplo.com")
 print(archivos)
+
+# 6. Eliminar archivo
+client.delete("usuario@ejemplo.com", "documento.pdf")
+
 ```
 
 ## Estructura del Proyecto
