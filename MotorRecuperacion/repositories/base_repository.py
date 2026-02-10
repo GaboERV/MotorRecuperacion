@@ -1,6 +1,6 @@
 from typing import Generic, TypeVar, Type, Optional, List
 from sqlalchemy.orm import Session
-from database.config import Base
+from ..database.config import Base
 
 T = TypeVar("T", bound=Base)
 

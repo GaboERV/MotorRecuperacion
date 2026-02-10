@@ -1,35 +1,31 @@
-import sys
-import os
+from MotorRecuperacion import configure, create_RecoveryEngine_client
 
-# Add parent directory to path to allow importing 'mi_proyecto_rag' as a package
-# This allows running 'python test.py' inside the folder
-current_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.dirname(current_dir)
-sys.path.insert(0, parent_dir)
+# 1. Configuración Global (Solo una vez al inicio) no es necesario si se configura en el archivo .env
+configure(database_url="mysql+pymysql://user:pass@localhost/db_name")
 
-from mi_proyecto_rag.main import rag_client, RAGSystem
+# 2. Crear una instancia del cliente
+client = create_RecoveryEngine_client()
 
-    
-if not isinstance(rag_client, RAGSystem):
-    print(f"FAILURE: rag_client is not RAGSystem, it is {type(rag_client)}")
-    sys.exit(1)
+# 3. Subir un archivo (ejemplo con PDF)
+with open("documento.pdf", "rb") as f:
+    client.upload(
+        user_email="usuario@ejemplo.com",
+        filename="documento.pdf",
+        data=f.read()
+    )
 
+# 4. Realizar una consulta (RAG)
+respuesta = client.ask(
+    user_email="usuario@ejemplo.com",
+    filenames=["documento.pdf"],
+    question="¿Cuál es el tema principal del documento?"
+)
+print(respuesta)
 
+# 5. Listar archivos
+archivos = client.list_files("usuario@ejemplo.com")
 
-with open("clase2.pdf", "rb") as f:
-    rag_client.upload("gaboe@example.com", "clase2.pdf", f.read())    
+# 6. Eliminar archivo
+client.delete("usuario@ejemplo.com", "documento.pdf")
 
-
-try:
-    print(rag_client.list_files("gaboe@example.com"))
-
-
-    print(rag_client.ask("gaboe@example.com", ["clase2.pdf"], "¿que es un vector?"))
-
-    rag_client.delete("gaboe@example.com", "clase2.pdf")
-
-    print(rag_client.list_files("gaboe@example.com"))
-except Exception as e:
-    print(f"FAILURE: {e}")
-    sys.exit(1)
-
+print(archivos)

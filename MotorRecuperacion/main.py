@@ -87,7 +87,6 @@ try:
     if not engine: 
         # Check if we have env vars to auto-configure (standalone mode)
         db_url = os.environ.get("DATABASE_URL")
-  
         # Fallback to constructing from parts if DATABASE_URL not set but parts are
         if not db_url and os.environ.get("DB_USER"):
              db_user = os.environ.get("DB_USER")

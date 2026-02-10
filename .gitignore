@@ -3,6 +3,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+MotorRecuperacion.egg-info/
 
 # Virtual Environment
 venv/
@@ -27,3 +28,5 @@ db_rag/
 # Uploads
 uploads/
 test_data/
+
+
