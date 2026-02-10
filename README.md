@@ -1,11 +1,13 @@
-# Sistema RAG con MySQL
+# Motor de Recuperación Semántica con MySQL
 
-Este proyecto implementa un sistema de Generación Aumentada por Recuperación (RAG) que permite cargar documentos (PDF, Docx, Texto, Imágenes, Video), almacenarlos de forma segura y realizar consultas sobre ellos utilizando una base de datos vectorial temporal y un modelo de lenguaje.
+Este proyecto implementa un sistema de Búsqueda Semántica (Retrieval Engine) que permite cargar documentos (PDF, Docx, Texto, Imágenes, Video), almacenarlos de forma segura y realizar consultas de similitud sobre ellos utilizando una base de datos vectorial temporal.
+
+**Nota**: Este no es un sistema RAG completo (aún no incluye generación de texto con LLMs), sino el componente de recuperación (Retrieval) que podría alimentar a uno.
 
 ## Características
 
 - **Base de Datos**: MySQL para metadatos de usuario y registro de archivos.
-- **RAG**: Búsqueda vectorial temporal usando ChromaDB y modelos de HuggingFace (`sentence-transformers`).
+- **Búsqueda Semántica**: Búsqueda vectorial temporal usando ChromaDB y modelos de embeddings de HuggingFace (`sentence-transformers`). Recupere los fragmentos más relevantes de sus documentos basándose en el significado, no solo en palabras clave.
 - **Formatos Soportados**:
   - Texto: `.txt`, `.md`, `.py`, `.json`
   - Documentos: `.pdf`, `.docx`
@@ -39,9 +41,14 @@ Este proyecto implementa un sistema de Generación Aumentada por Recuperación (
 3.  **Configurar Variables de Entorno**:
     Crea un archivo `.env` en la raíz del proyecto con la URL de conexión a tu base de datos MySQL:
 
+    ````env
     ```env
+    # Opción A: MySQL
     DATABASE_URL=mysql+pymysql://usuario:contraseña@host:puerto/nombre_bd
-    ```
+
+    # Opción B: SQLite (Archivo local)
+    # DATABASE_URL=sqlite:///rag_data.db
+    ````
 
     _Nota: El driver utilizado es `pymysql`. Asegúrate de que tu usuario tenga permisos para crear tablas si es la primera ejecución._
 
@@ -80,12 +87,13 @@ with open("documento.pdf", "rb") as f:
         data=f.read()
     )
 
-# 4. Realizar una consulta (RAG)
+# 4. Realizar una consulta (Búsqueda Semántica)
 respuesta = client.ask(
     user_email="usuario@ejemplo.com",
     filenames=["documento.pdf"],
-    question="¿Cuál es el tema principal del documento?"
+    question="¿Qué fragmentos son relevantes para 'tema principal'?"
 )
+# Devuelve una lista de cadenas de texto (chunks) relevantes
 print(respuesta)
 
 # 5. Listar archivos

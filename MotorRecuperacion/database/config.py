@@ -21,10 +21,17 @@ def init_db(database_url: str = None):
         raise ValueError("Database URL not configured. Call 'configure()' first.")
 
     # Create engine (if not already created or if we want to re-init)
-    engine = create_engine(url)
+    connect_args = {}
+    if url.startswith("sqlite"):
+        connect_args["check_same_thread"] = False
+        
+    engine = create_engine(url, connect_args=connect_args)
     
     # Create SessionLocal class
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+    # Ensure tables exist
+    Base.metadata.create_all(bind=engine)
 
 def get_db():
     if SessionLocal is None:
