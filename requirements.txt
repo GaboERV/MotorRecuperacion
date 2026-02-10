@@ -6,11 +6,12 @@ sentence-transformers
 chromadb
 sqlalchemy
 pymysql
-python-docx
+docx2txt
 pypdf
 pillow
 pytesseract
-SpeechRecognition
+openai-whisper
 moviepy
 python-dotenv
+cryptography
 

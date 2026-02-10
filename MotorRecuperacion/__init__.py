@@ -1,3 +1,6 @@
+from dotenv import load_dotenv
+load_dotenv()
+
 from .main import RecoveryEngine
 from .database.config import get_db, init_db
 from .config import config
